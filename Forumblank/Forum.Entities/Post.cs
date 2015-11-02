@@ -16,6 +16,6 @@ namespace Forum.Entities
 
         public virtual User User { get; set; }
         public virtual Thread Thread { get; set; }
-
+        
     }
 }
