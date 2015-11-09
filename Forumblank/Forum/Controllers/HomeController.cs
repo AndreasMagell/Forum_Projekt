@@ -26,5 +26,11 @@ namespace Forum.Controllers
 
             return View();
         }
+        public ActionResult Forum()
+        {
+            ViewBag.Message = "Forum page.";
+
+            return View();
+        }
     }
 }
