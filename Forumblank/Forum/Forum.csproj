@@ -172,6 +172,11 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ThreadsController.cs" />
     <Compile Include="DataContexts\ForumDb.cs" />
+    <Compile Include="DataContexts\ForumsMigrations\201511091426317_InitialCreate.cs" />
+    <Compile Include="DataContexts\ForumsMigrations\201511091426317_InitialCreate.Designer.cs">
+      <DependentUpon>201511091426317_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\ForumsMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
     <Compile Include="DataContexts\IdentityMigrations\201510291422440_InitialCreate.cs" />
     <Compile Include="DataContexts\IdentityMigrations\201510291422440_InitialCreate.Designer.cs">
@@ -285,6 +290,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DataContexts\ForumsMigrations\201511091426317_InitialCreate.resx">
+      <DependentUpon>201511091426317_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201510291422440_InitialCreate.resx">
       <DependentUpon>201510291422440_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
