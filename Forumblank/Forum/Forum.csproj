@@ -171,6 +171,7 @@
     <Compile Include="Controllers\ForumsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Controllers\ThreadsController.cs" />
     <Compile Include="DataContexts\ForumDb.cs" />
     <Compile Include="DataContexts\ForumsMigrations\201511091426317_InitialCreate.cs" />
@@ -277,6 +278,11 @@
     <Content Include="Views\Forums\Details.cshtml" />
     <Content Include="Views\Forums\Edit.cshtml" />
     <Content Include="Views\Forums\Index.cshtml" />
+    <Content Include="Views\Posts\Create.cshtml" />
+    <Content Include="Views\Posts\Delete.cshtml" />
+    <Content Include="Views\Posts\Details.cshtml" />
+    <Content Include="Views\Posts\Edit.cshtml" />
+    <Content Include="Views\Posts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
