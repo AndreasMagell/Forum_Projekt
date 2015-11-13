@@ -51,6 +51,7 @@ namespace Forum.Controllers
         {
             if (ModelState.IsValid)
             {
+                thread.Date = DateTime.Now;
                 db.Threads.Add(thread);
                 db.SaveChanges();
                 return RedirectToAction("Index");
