@@ -49,10 +49,13 @@ namespace Forum.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Body,Date")] Post post)
         {
+
             if (ModelState.IsValid)
             {
+                post.Date = DateTime.Now;
                 db.Posts.Add(post);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
