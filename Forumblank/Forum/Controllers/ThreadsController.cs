@@ -16,7 +16,7 @@ namespace Forum.Controllers
         private ThreadsDb db = new ThreadsDb();
 
         // GET: Threads
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
             return View(db.Threads.ToList());
         }
@@ -84,7 +84,7 @@ namespace Forum.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(thread).State = EntityState.Modified;
+                db.Entry(thread).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -15,7 +15,7 @@ namespace Forum.Entities
         public string Title { get; set; }
         public DateTime Date { get; set; }
 
-        public virtual Category Category { get; set; }
+        public virtual Categories Category { get; set; }
         public virtual User User { get; set; }
     }
 }

@@ -83,7 +83,7 @@ namespace Forum.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(forums).State = EntityState.Modified;
+                db.Entry(forums).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -51,6 +51,8 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -173,10 +175,20 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Controllers\ThreadsController.cs" />
+    <Compile Include="DataContexts\CategoriesDb.cs" />
+    <Compile Include="DataContexts\CategoriesMigrations\201511191017273_InitialCreate.cs" />
+    <Compile Include="DataContexts\CategoriesMigrations\201511191017273_InitialCreate.Designer.cs">
+      <DependentUpon>201511191017273_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\CategoriesMigrations\Configuration.cs" />
     <Compile Include="DataContexts\ForumDb.cs" />
     <Compile Include="DataContexts\ForumsMigrations\201511091426317_InitialCreate.cs" />
     <Compile Include="DataContexts\ForumsMigrations\201511091426317_InitialCreate.Designer.cs">
       <DependentUpon>201511091426317_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\ForumsMigrations\201511191415209_CategoriesFix.cs" />
+    <Compile Include="DataContexts\ForumsMigrations\201511191415209_CategoriesFix.Designer.cs">
+      <DependentUpon>201511191415209_CategoriesFix.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\ForumsMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
@@ -206,6 +218,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -302,8 +315,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DataContexts\CategoriesMigrations\201511191017273_InitialCreate.resx">
+      <DependentUpon>201511191017273_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\ForumsMigrations\201511091426317_InitialCreate.resx">
       <DependentUpon>201511091426317_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\ForumsMigrations\201511191415209_CategoriesFix.resx">
+      <DependentUpon>201511191415209_CategoriesFix.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201510291422440_InitialCreate.resx">
       <DependentUpon>201510291422440_InitialCreate.cs</DependentUpon>

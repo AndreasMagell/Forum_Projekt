@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Forum.Entities
 {
-    public enum Category
+    public class Categories
     {
-        Hardware,
-        Software,
-        Coding,
-        News
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }
