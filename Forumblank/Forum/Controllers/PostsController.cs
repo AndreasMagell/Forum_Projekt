@@ -13,7 +13,7 @@ namespace Forum.Controllers
 {
     public class PostsController : Controller
     {
-        private PostsDb db = new PostsDb();
+        private ForumDbContext db = new ForumDbContext();
 
         // GET: Posts
         public ActionResult Index()

@@ -13,7 +13,7 @@ namespace Forum.Controllers
 {
     public class ForumsController : Controller
     {
-        private ForumDb db = new ForumDb();
+        private ForumDbContext db = new ForumDbContext();
 
         // GET: Forums
         public ActionResult Index()
@@ -114,6 +114,11 @@ namespace Forum.Controllers
             db.Forums.Remove(forums);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult CategoriesDropDown()
+        {
+            return PartialView("_CategoriesDropDown", db.Categories.ToList());
         }
 
         protected override void Dispose(bool disposing)

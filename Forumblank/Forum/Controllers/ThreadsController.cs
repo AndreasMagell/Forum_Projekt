@@ -13,7 +13,7 @@ namespace Forum.Controllers
 {
     public class ThreadsController : Controller
     {
-        private ThreadsDb db = new ThreadsDb();
+        private ForumDbContext db = new ForumDbContext();
 
         // GET: Threads
         public ActionResult Index(int? id)

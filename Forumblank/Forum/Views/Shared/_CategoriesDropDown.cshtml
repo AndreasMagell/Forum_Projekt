@@ -1,0 +1,11 @@
+﻿@model List<Forum.Entities.Categories>
+@{ 
+    IEnumerable<SelectListItem> list = from category in Model
+                                select new SelectListItem
+                                {
+                                    Text = category.Name,
+                                    Value = category.Id.ToString(),
+                                    Selected = false
+                                };
+}
+@Html.DropDownList("Category", list, htmlAttributes: new { @class = "form-control" })
