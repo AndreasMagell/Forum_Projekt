@@ -19,7 +19,7 @@ Välkommen till forumet.
             <div class="row">
                 <div class="col-lg-12">
                     <div class="well">
-                        @Html.ActionLink(Html.DisplayFor(modelItem => item.Category).ToHtmlString(), "Index", "Threads")
+                        @Html.ActionLink(Html.DisplayFor(modelItem => item.Category.Name).ToHtmlString(), "Index", "Threads")
                     </div>
                 </div>
             </div>

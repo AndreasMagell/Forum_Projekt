@@ -47,16 +47,20 @@ namespace Forum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Category")] Forums forums)
+        public ActionResult Create(int Category)
         {
-            if (ModelState.IsValid)
+            Categories category = db.Categories.First(cat => cat.Id == Category);
+
+            if (category != null)
             {
+                Forums forums = new Forums() { Category = category };
+
                 db.Forums.Add(forums);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(forums);
+            return View();
         }
 
         // GET: Forums/Edit/5
