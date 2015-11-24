@@ -47,17 +47,23 @@ namespace Forum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Date,Category")] Thread thread)
+        public ActionResult Create(int Category)
         {
-            if (ModelState.IsValid)
+
+            Categories category = db.Categories.First(cat => cat.Id == Category);
+
+
+            if (category != null)
             {
-                thread.Date = DateTime.Now;
-                db.Threads.Add(thread);
+                Thread Thread = new Thread() { Category = category };
+
+                Thread.Date = DateTime.Now;
+                db.Threads.Add(Thread);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(thread);
+            return View();
         }
 
         // GET: Threads/Edit/5
@@ -115,6 +121,11 @@ namespace Forum.Controllers
             db.Threads.Remove(thread);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult CategoriesDropDown()
+        {
+            return PartialView("_CategoriesDropDown", db.Categories.ToList());
         }
 
         protected override void Dispose(bool disposing)
