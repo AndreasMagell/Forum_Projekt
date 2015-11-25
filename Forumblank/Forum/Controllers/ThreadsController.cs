@@ -47,7 +47,7 @@ namespace Forum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int Category)
+        public ActionResult Create(string Title, int Category)
         {
 
             Categories category = db.Categories.First(cat => cat.Id == Category);
@@ -55,7 +55,7 @@ namespace Forum.Controllers
 
             if (category != null)
             {
-                Thread Thread = new Thread() { Category = category };
+                Thread Thread = new Thread() { Title= Title, Category = category };
 
                 Thread.Date = DateTime.Now;
                 db.Threads.Add(Thread);
