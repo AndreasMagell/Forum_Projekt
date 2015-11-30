@@ -127,5 +127,16 @@ namespace Forum.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult NewPost(Post newPost)
+        {
+            return PartialView(newPost);
+        }
+
+        public ActionResult Add(Post newPost)
+        {
+            // add new post to database and redirect to thread detail page
+            return RedirectToAction("ViewThreadDetail", "Thread", new { id = newPost.Thread.Id });
+        }
     }
 }

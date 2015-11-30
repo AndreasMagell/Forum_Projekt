@@ -17,9 +17,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Date)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category)
-        </th>
+
         <th></th>
     </tr>
 
@@ -27,14 +25,14 @@
 
     <tr>
         <td>
+            <div class="well">
             @Html.ActionLink(Html.DisplayFor(modelItem => item.Title).ToHtmlString(),"Index", "Posts")
+            </div>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Date)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category)
-        </td>
+
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |

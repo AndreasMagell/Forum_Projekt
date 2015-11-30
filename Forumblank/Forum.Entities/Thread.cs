@@ -17,5 +17,11 @@ namespace Forum.Entities
 
         public virtual Categories Category { get; set; }
         public virtual User User { get; set; }
+        public List<Post> Posts { get; set; }
+
+        public static implicit operator Thread(int v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

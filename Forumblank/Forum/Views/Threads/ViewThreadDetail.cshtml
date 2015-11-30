@@ -1,0 +1,20 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Forum.Models.ThreadDetailViewModel
+
+@{
+    ViewBag.Title = "ViewThreadDetail";
+}
+
+<h2>ViewThreadDetail</h2>
+
+<p>List of Posts:</p>
+@foreach (var post in Model.Thread.Posts)
+{
+    <div>@post.Body</div>
+}
+
+<p>Add a Post:</p>
+@Html.Action("NewPost", "Post", Model.NewPost)
+

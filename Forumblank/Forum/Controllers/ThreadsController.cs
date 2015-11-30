@@ -136,5 +136,22 @@ namespace Forum.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public class ThreadDetailViewModel
+        {
+            public Thread Thread { get; set; }
+
+            public Post NewPost { get; set; }
+        }
+
+        public ActionResult ViewThreadDetail(int id)
+        {
+            // load thread from database
+            var thread = new Thread() { Id = id, Title = "ASP.Net MVC 5", Posts = new List<Post>() };
+            // assign ThreadId of New Post
+            var newPost = new Post() {Body = "", Thread = id };
+
+            return View(new ThreadDetailViewModel() { Thread = thread, NewPost = newPost });
+        }
     }
 }

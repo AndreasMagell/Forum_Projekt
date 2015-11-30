@@ -187,6 +187,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ThreadDetailViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -263,6 +264,7 @@
     <Content Include="Views\Posts\Index.cshtml" />
     <Content Include="Views\Shared\_CategoriesDropDown.cshtml" />
     <Content Include="Views\Shared\_NewPost.cshtml" />
+    <Content Include="Views\Threads\ViewThreadDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
