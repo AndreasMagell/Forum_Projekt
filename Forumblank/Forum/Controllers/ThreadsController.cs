@@ -18,6 +18,15 @@ namespace Forum.Controllers
         // GET: Threads
         public ActionResult Index(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Categories Thread = db.Categories.Where(Categories.Id)(id);
+            if (Thread == null)
+            {
+                return HttpNotFound();
+            }
             return View(db.Threads.ToList());
         }
 
