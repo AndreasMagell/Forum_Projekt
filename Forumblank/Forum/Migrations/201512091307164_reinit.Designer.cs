@@ -7,13 +7,13 @@ namespace Forum.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class init : IMigrationMetadata
+    public sealed partial class reinit : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(reinit));
         
         string IMigrationMetadata.Id
         {
-            get { return "201511231329296_init"; }
+            get { return "201512091307164_reinit"; }
         }
         
         string IMigrationMetadata.Source

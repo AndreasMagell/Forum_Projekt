@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Forum.Entities.Forums>
+﻿@model IEnumerable<Forum.Models.Forums>
 
 @{
     ViewBag.Title = "Index";
@@ -19,7 +19,7 @@ Välkommen till forumet.
             <div class="row">
                 <div class="col-lg-12">
                     <div class="well">
-                        @Html.ActionLink(Html.DisplayFor(modelItem => item.Category.Name).ToHtmlString(), "Index", "Threads")
+                        @Html.ActionLink(Html.DisplayFor(modelItem => item.Category.Name).ToHtmlString(), "Index", "Threads", new { id = item.Id }, new { })
                     </div>
                 </div>
             </div>

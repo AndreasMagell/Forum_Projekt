@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Forum.DataContexts;
-using Forum.Entities;
+using Forum.Models;
 
 namespace Forum.Controllers
 {
@@ -16,9 +16,14 @@ namespace Forum.Controllers
         private ForumDbContext db = new ForumDbContext();
 
         // GET: Posts
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return View(db.Posts.ToList());
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            int threadId = id.GetValueOrDefault();
+            return View(db.Posts.Where(post => post.Thread.Id == threadId).ToList());
         }
 
         // GET: Posts/Details/5
@@ -47,7 +52,7 @@ namespace Forum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Body,Date")] Post post)
+        public ActionResult Create([Bind(Include = "Id, Body, Date")] Post post)
         {
 
             if (ModelState.IsValid)
@@ -133,10 +138,11 @@ namespace Forum.Controllers
             return PartialView(newPost);
         }
 
-        public ActionResult Add(Post newPost)
+        public ActionResult Add(string Body, int thread_id)
         {
+            var r = Request;
             // add new post to database and redirect to thread detail page
-            return RedirectToAction("ViewThreadDetail", "Thread", new { id = newPost.Thread.Id });
+            return RedirectToAction("ViewThreadDetail", "Thread", new { id = thread_id });
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model Forum.Models.ThreadDetailViewModel
+@model Forum.Models.Thread
 
 @{
     ViewBag.Title = "ViewThreadDetail";
@@ -10,11 +10,10 @@
 <h2>ViewThreadDetail</h2>
 
 <p>List of Posts:</p>
-@foreach (var post in Model.Thread.Posts)
+@foreach (var post in Model.Posts)
 {
-    <div>@post.Body</div>
+    Html.RenderPartial("_PostPartialView", post);
 }
 
-<p>Add a Post:</p>
-@Html.Action("NewPost", "Post", Model.NewPost)
-
+<p>Add a Post:</p>{
+    @Html.Partial("_NewPost", new Forum.Models.Post() { Thread = Model })

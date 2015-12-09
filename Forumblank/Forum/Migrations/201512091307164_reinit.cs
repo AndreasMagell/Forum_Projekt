@@ -3,7 +3,7 @@ namespace Forum.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init : DbMigration
+    public partial class reinit : DbMigration
     {
         public override void Up()
         {
@@ -17,15 +17,20 @@ namespace Forum.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Forums",
+                "dbo.Threads",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Title = c.String(nullable: false, maxLength: 100),
+                        Date = c.DateTime(nullable: false),
                         Category_Id = c.Int(),
+                        User_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Categories", t => t.Category_Id)
-                .Index(t => t.Category_Id);
+                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
+                .Index(t => t.Category_Id)
+                .Index(t => t.User_Id);
             
             CreateTable(
                 "dbo.Posts",
@@ -35,61 +40,13 @@ namespace Forum.Migrations
                         Body = c.String(nullable: false),
                         Date = c.DateTime(nullable: false),
                         Thread_Id = c.Int(),
-                        User_Id = c.Int(),
+                        User_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Threads", t => t.Thread_Id)
-                .ForeignKey("dbo.Users", t => t.User_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
                 .Index(t => t.Thread_Id)
                 .Index(t => t.User_Id);
-            
-            CreateTable(
-                "dbo.Threads",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Title = c.String(nullable: false, maxLength: 100),
-                        Date = c.DateTime(nullable: false),
-                        Category_Id = c.Int(),
-                        User_Id = c.Int(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Categories", t => t.Category_Id)
-                .ForeignKey("dbo.Users", t => t.User_Id)
-                .Index(t => t.Category_Id)
-                .Index(t => t.User_Id);
-            
-            CreateTable(
-                "dbo.Users",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        UserName = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.AspNetRoles",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        Name = c.String(nullable: false, maxLength: 256),
-                    })
-                .PrimaryKey(t => t.Id)
-                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
-            
-            CreateTable(
-                "dbo.AspNetUserRoles",
-                c => new
-                    {
-                        UserId = c.String(nullable: false, maxLength: 128),
-                        RoleId = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId)
-                .Index(t => t.RoleId);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -136,39 +93,72 @@ namespace Forum.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
+            CreateTable(
+                "dbo.AspNetUserRoles",
+                c => new
+                    {
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        RoleId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.UserId, t.RoleId })
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId);
+            
+            CreateTable(
+                "dbo.Forums",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Category_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Categories", t => t.Category_Id)
+                .Index(t => t.Category_Id);
+            
+            CreateTable(
+                "dbo.AspNetRoles",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Name = c.String(nullable: false, maxLength: 256),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Forums", "Category_Id", "dbo.Categories");
+            DropForeignKey("dbo.Threads", "User_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Posts", "User_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Posts", "User_Id", "dbo.Users");
             DropForeignKey("dbo.Posts", "Thread_Id", "dbo.Threads");
-            DropForeignKey("dbo.Threads", "User_Id", "dbo.Users");
             DropForeignKey("dbo.Threads", "Category_Id", "dbo.Categories");
-            DropForeignKey("dbo.Forums", "Category_Id", "dbo.Categories");
+            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Forums", new[] { "Category_Id" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
-            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.Threads", new[] { "User_Id" });
-            DropIndex("dbo.Threads", new[] { "Category_Id" });
             DropIndex("dbo.Posts", new[] { "User_Id" });
             DropIndex("dbo.Posts", new[] { "Thread_Id" });
-            DropIndex("dbo.Forums", new[] { "Category_Id" });
+            DropIndex("dbo.Threads", new[] { "User_Id" });
+            DropIndex("dbo.Threads", new[] { "Category_Id" });
+            DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Forums");
+            DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.AspNetUserRoles");
-            DropTable("dbo.AspNetRoles");
-            DropTable("dbo.Users");
-            DropTable("dbo.Threads");
             DropTable("dbo.Posts");
-            DropTable("dbo.Forums");
+            DropTable("dbo.Threads");
             DropTable("dbo.Categories");
         }
     }

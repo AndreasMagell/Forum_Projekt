@@ -1,5 +1,4 @@
-﻿using Forum.Entities;
-using Forum.Models;
+﻿using Forum.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;

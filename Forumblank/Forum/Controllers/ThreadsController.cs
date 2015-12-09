@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Forum.DataContexts;
-using Forum.Entities;
+using Forum.Models;
 
 namespace Forum.Controllers
 {
@@ -22,12 +22,15 @@ namespace Forum.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Categories Thread = db.Categories.Where(Categories.Id)(id);
-            if (Thread == null)
+            // get the category through the category id
+            int catId = id.GetValueOrDefault();
+            Categories cat = db.Categories.First(category => category.Id == catId);
+            if (cat == null)
             {
                 return HttpNotFound();
             }
-            return View(db.Threads.ToList());
+            // if category is valid, get the threads from the category.
+            return View(cat.Threads.ToList());
         }
 
         // GET: Threads/Details/5
@@ -155,12 +158,19 @@ namespace Forum.Controllers
 
         public ActionResult ViewThreadDetail(int id)
         {
-            // load thread from database
-            var thread = new Thread() { Id = id, Title = "ASP.Net MVC 5", Posts = new List<Post>() };
-            // assign ThreadId of New Post
-            var newPost = new Post() {Body = "", Thread = id };
+            Thread thread = db.Threads.Find(id);
+            if (thread == null)
+            {
+                return HttpNotFound();
+            }
+            return View(thread);
 
-            return View(new ThreadDetailViewModel() { Thread = thread, NewPost = newPost });
+            //// load thread from database
+            //var thread = new Thread() { Id = id, Title = "ASP.Net MVC 5", Posts = new List<Post>() };
+            //// assign ThreadId of New Post
+            //var newPost = new Post() {Body = "", Thread = id };
+
+            //return View(new ThreadDetailViewModel() { Thread = thread, NewPost = newPost });
         }
     }
 }

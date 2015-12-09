@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Forum.Entities
+namespace Forum.Models
 {
-    public class Categories
+    public class Forums
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-
-        public virtual ICollection<Thread> Threads {get;set;}
+        public virtual Categories Category { get; set; }
     }
 }

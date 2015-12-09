@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Forum.DataContexts;
-using Forum.Entities;
+using Forum.Models;
 
 namespace Forum.Controllers
 {

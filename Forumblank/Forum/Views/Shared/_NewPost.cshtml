@@ -1,13 +1,12 @@
-﻿@model Forum.Entities.Post
+﻿@model Forum.Models.Post
 
-@using (Html.BeginForm("Add", "Post"))
-{
+@using (Html.BeginForm("Add", "Posts")){
 
     @Html.LabelFor(a => a.Body);
     @Html.TextBoxFor(a => a.Body);
 
     //A hidden field to store ThreadId
-    @Html.HiddenFor(a => a.Thread.Id);
+    @Html.Hidden("thread_id", Model.Thread.Id);
 
     <button>Submit</button>
 }

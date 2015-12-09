@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Forum.Entities
+namespace Forum.Models
 {
     public class Thread
     {
@@ -16,7 +16,7 @@ namespace Forum.Entities
         public DateTime Date { get; set; }
 
         public virtual Categories Category { get; set; }
-        public virtual User User { get; set; }
+        public virtual ApplicationUser User { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
 
         public static implicit operator Thread(int v)
